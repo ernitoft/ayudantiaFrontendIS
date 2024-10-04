@@ -1,0 +1,50 @@
+<form class="max-w-sm mx-auto justify-items-center flex flex-col h-full" [formGroup]="form">
+  <div class="flex-grow flex flex-col justify-center">
+    <h1 class="text-3xl font-extrabold text-gray-900 tracking-widest text-center mb-5">INICIO DE SESIÓN</h1>
+    <hr class="w-48 h-1 mx-auto border-0 rounded mb-5">
+
+    <!-- Correo -->
+    <div class="mb-5">
+      <label for="email" class="mb-2 text-sm font-medium text-gray-900">Correo</label>
+      <input [class.is-invalid]="emailValidate" type="email" id="email" formControlName="email"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
+        placeholder="Ingrese su correo electrónico" name="email" />
+
+
+
+        <small *ngIf="emailValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese un correo válido.</small>
+
+
+      </div>
+
+    <!-- Contraseña -->
+    <div class="mb-7">
+      <label for="password" class="mb-2 text-sm font-medium text-gray-900">Contraseña</label>
+
+      <input [class.is-invalid]="passwordValidate" name="password" type="password" formControlName="password"
+        id="password" placeholder="Ingrese su contraseña"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+
+
+        <small *ngIf="passwordValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese una contraseña válida.</small>
+
+
+      </div>
+
+    <!-- Errores -->
+    <div *ngFor="let error of errorMessage" class="bg-red-500 rounded-lg mb-5 flex justify-center">
+      <a *ngIf="error" class="text-white text-sm font-medium m-5">
+
+        {{ error }}
+
+      </a>
+    </div>
+
+    <!-- Botones -->
+    <button type="button" (click)="login()"
+      class="text-white primarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-3">Iniciar sesión
+    </button>
+
+    <a (click)="goToRegister()" class="secundarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-red-600">Registrarse</a>
+  </div>
+</form>
