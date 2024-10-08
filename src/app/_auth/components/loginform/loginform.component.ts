@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from '../../service/auth-service.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
+import { LocalStorageService } from '../../../_shared/service/local-storage.service';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
   imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './loginform.component.html',
   styleUrls: ['./loginform.component.css'],
-  providers: [AuthServiceService]
+  providers: [AuthServiceService, LocalStorageService]
 })
 
 
@@ -24,6 +24,7 @@ export class LoginformComponent {
   errorMessage: string[] = [];
 
   private authService = inject(AuthServiceService);
+  private LocalStorageService = inject(LocalStorageService);
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.formulario();
@@ -58,8 +59,12 @@ export class LoginformComponent {
       const response = await this.authService.login(this.form.value);
 
       if (response.data.user){
-        this.authService.setClientLogger(response.data.user);
-        this.router.navigate(['/']); // Redirigir a la página principal o a la pagina deseada post login
+        this.LocalStorageService.setClientLogger(response.data.user);
+        this.LocalStorageService.setToken(response.data.token);
+        //TODO: Implementar que efectivamente es un admin [redirecciona al admin]
+        //TODO: Implementar que efectivamente es un worker [redirecciona al worker]
+
+        this.router.navigate(['/admin/dashboard']);
       } else{
         console.log('Error en el componente del login [Login Form]: ', response);
         this.error = true;
