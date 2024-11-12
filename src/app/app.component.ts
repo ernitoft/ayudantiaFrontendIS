@@ -1,10 +1,12 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { ProductsComponent } from './_shared/page/products/products.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HttpClientModule, ProductsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
