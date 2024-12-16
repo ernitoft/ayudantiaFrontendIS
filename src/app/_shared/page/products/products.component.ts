@@ -17,19 +17,28 @@ export class ProductsComponent implements OnInit {
   products: any[] = [];
   filteredProducts: any[] = [];
   searchQuery: string = '';
+  showProducts: boolean = false;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.productsService
-      .getProducts()
-      .then((data) => {
-          this.products = data.data;
-          this.filteredProducts = this.products;
-        })
-      .catch((error: any) => {
-        console.log(error);
-      });
+    setTimeout(() => {
+      this.productsService
+        .getProducts()
+        .then((data) => {
+            this.products = data.data;
+            this.filteredProducts = this.products;
+          }). finally(() => {
+            // Esta es otra forma de hacerlo
+            // this.showProducts = true
+          })
+        .catch((error: any) => {
+          console.log(error);
+        });
+
+      this.showProducts = true;
+    }, 4000);
+
   }
 
   filterProducts(): void {
